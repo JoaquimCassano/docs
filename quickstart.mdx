@@ -45,7 +45,7 @@ while True:
   pagamento = alertpix.Charge(link="apenasumnerdd", amount=1000, comment="Pagando aquele cafézinho", username="Remetente")
   pagamento.create()
   ```
-  Na primeira linha, criamos a classe Charge, e preenchemos com os dados que desejamos (Sendo `link` o username da twitch do destinatário da doação, `amount` o valor em centavos, comment a mensagem (opcional) e username o nome do remetente (opcional))
+  Na primeira linha, criamos a classe Charge, e preenchemos com os <Tooltip tip="Sendo `link` o username da twitch do destinatário da doação, `amount` o valor em centavos, comment a mensagem (opcional) e username o nome do remetente (opcional)">dados que desejamos</Tooltip>
   
   
   Porém, o pagamento ainda é só uma organização local de nosso código. Ele não foi requisitado para a alertpix. Portanto, precisamos rodar a função `.create()` da segunda linha para efetuarmos a criação da Charge.
@@ -74,10 +74,11 @@ while True:
 Agora que você já tem conhecimento básico sobre a `Alertpix.py`, por que não navegar entre os outros quatro exemplos, para conhecer as outras funções?
 <CardGroup>
 
-<Card title="Olhando as notificações" icon="bell" href="/settings/global">
+<Card title="Olhando as notificações" 
+      icon="bell" 
+      href="notifications.mdx">
   TODO
 </Card>
-
 
 <Card
   title="Integrate Analytics"
