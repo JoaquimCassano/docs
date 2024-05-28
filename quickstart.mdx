@@ -1,86 +1,106 @@
 ---
-title: 'Quickstart'
-description: 'Start building awesome documentation in under 5 minutes'
+title: 'Iniciando'
+description: 'Crie seu primeiro app usando a **Alertpix.py**!'
 ---
 
-## Setup your development
+## Requisitos
 
-Learn how to update your docs locally and and deploy them to the public.
+Para escrevermos nosso código, você precisará de:
 
-### Edit and preview
+- Um editor de código 
+- Conhecimento básico de Python e lógica de programação
+- [Python](https://www.python.org/downloads/)
 
-<AccordionGroup>
-  <Accordion icon="github" title="Clone your docs locally">
-    During the onboarding process, we created a repository on your Github with
-    your docs content. You can find this repository on our
-    [dashboard](https://dashboard.mintlify.com). To clone the repository
-    locally, follow these
-    [instructions](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
-    in your terminal.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Preview changes">
-    Previewing helps you make sure your changes look as intended. We built a
-    command line interface to render these changes locally. 1. Install the
-    [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the
-    documentation changes locally with this command: ``` npm i -g mintlify ```
-    2. Run the following command at the root of your documentation (where
-    `mint.json` is): ``` mintlify dev ```
-  </Accordion>
-</AccordionGroup>
+Nosso primeiro código criará uma [Charge](TODO) de um valor que o usuário desejar para o usuário apenasumnerdd (O criador dessas docs, não sou trouxa nem nada :D), e avisará quando a charge for paga
+<Card title="Me pague um café!" icon="pix" iconType="duotone" color="#ca8b04" href="https://alertpix.live/apenasumnerdd">
+  Envie uma doação para ajudar o criador da SDK!
+</Card>
 
-### Deploy your changes
+### Iniciando
 
-<AccordionGroup>
+Em seu editor de código preferido, crie um arquivo chamado `exemplo1.py`, e nele, insira o seguinte:
+```python
+import alertpix
 
-<Accordion icon="message-bot" title="Install our Github app">
-  Our Github app automatically deploys your changes to your docs site, so you
-  don't need to manage deployments yourself. You can find the link to install on
-  your [dashboard](https://dashboard.mintlify.com). Once the bot has been
-  successfully installed, there should be a check mark next to the commit hash
-  of the repo.
+pagamento = alertpix.Charge(link="apenasumnerdd", amount=1000, comment="Pagando aquele cafézinho", username="Remetente")
+pagamento.create()
+
+print("BrCode para o pagamento: ", pagamento.brcode.code)
+print("Aguardando pagamento...")
+while True:
+    if pagamento.check() == True:
+        print("Pagamento concluído!")
+        break
+```
+
+
+<Accordion icon="question" title="Como esse código funciona?">
+  ## Vamos por partes.
+  ```python
+  import alertpix
+  ```
+  Esse trecho importa para dentro de nosso código toda a sdk, assim permitindo que possamos utilizar os recursos da biblioteca.
+
+  ```python
+  pagamento = alertpix.Charge(link="apenasumnerdd", amount=1000, comment="Pagando aquele cafézinho", username="Remetente")
+  pagamento.create()
+  ```
+  Na primeira linha, criamos a classe Charge, e preenchemos com os dados que desejamos (Sendo `link` o username da twitch do destinatário da doação, `amount` o valor em centavos, comment a mensagem (opcional) e username o nome do remetente (opcional))
+  
+  
+  Porém, o pagamento ainda é só uma organização local de nosso código. Ele não foi requisitado para a alertpix. Portanto, precisamos rodar a função `.create()` da segunda linha para efetuarmos a criação da Charge.
+
+  Agora, vamos para a segunda parte do código.
+  ```python
+  print("BrCode para o pagamento: ", pagamento.brcode.code)
+  print("Aguardando pagamento...")
+  ```
+  Essa parte não tem muito mistério. A primeira linha apenas imprime no terminal a frase `"BrCode para o pagamento:"` seguido do [BrCODE](https://www.bcb.gov.br/content/estabilidadefinanceira/spb_docs/ManualBRCode.pdf) do mesmo, e a segunda apenas imprime a frase `"Aguardando pagamento..."`
+
+  Vamos agora para a última parte.
+  ```python
+  while True:
+    if pagamento.check() == True:
+        print("Pagamento concluído!")
+        break
+  ```
+  Na primeira linha, criamos um [loop while](https://docs.python.org/3/reference/compound_stmts.html#the-while-statement) que é executado infinitamente, a não ser que uma condição específica o faça parar (A doação ser paga).
+  Na segunda linha, iniciamos a condicional que rodará infinitamente em nosso loop, a função que checa se o pagamento foi concluido. Nela, rodamos a função `.check()` da classe Charge, e checamos se o resultado é `True`, o que nos significaria que foi sim, pago. Nesse caso, avisamos que foi pago e encerramos o código. Caso contrário, o loop segue.
 </Accordion>
-<Accordion icon="rocket" title="Push your changes">
-  [Commit and push your changes to
-  Git](https://docs.github.com/en/get-started/using-git/pushing-commits-to-a-remote-repository#about-git-push)
-  for your changes to update in your docs site. If you push and don't see that
-  the Github app successfully deployed your changes, you can also manually
-  update your docs through our [dashboard](https://dashboard.mintlify.com).
-</Accordion>
 
-</AccordionGroup>
+É óbvio que esse código poderia ser melhorado de diversas formas (adicionar um timeout na verificação, mostrar o QrCODE visualmente, etc.), mas preferi deixar simples, para não complicar demais por enquanto.
+## Outros exemplos
 
-## Update your docs
-
-Add content directly in your files with MDX syntax and React components. You can use any of our components, or even build your own.
-
+Agora que você já tem conhecimento básico sobre a `Alertpix.py`, por que não navegar entre os outros quatro exemplos, para conhecer as outras funções?
 <CardGroup>
 
-<Card title="Style Your Docs" icon="paintbrush" href="/settings/global">
-  Add flair to your docs with personalized branding.
+<Card title="Olhando as notificações" icon="bell" href="/settings/global">
+  TODO
 </Card>
+
+
+<Card
+  title="Integrate Analytics"
+  icon="chart-mixed"
+  href="TOOD"
+>
+  TODO
+</Card>
+
+<Card
+  title="Olhando o saldo"
+  icon="money"
+  href="TODO"
+>
+  TODO
+</Card>
+
 
 <Card
   title="Add API Endpoints"
   icon="square-code"
   href="/api-playground/configuration"
 >
-  Implement your OpenAPI spec and enable API user interaction.
+  TODO
 </Card>
-
-<Card
-  title="Integrate Analytics"
-  icon="chart-mixed"
-  href="/analytics/supported-integrations"
->
-  Draw insights from user interactions with your documentation.
-</Card>
-
-<Card
-  title="Host on a Custom Domain"
-  icon="browser"
-  href="/settings/custom-domain/subdomain"
->
-  Keep your docs on your own website's subdomain.
-</Card>
-
 </CardGroup>
