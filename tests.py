@@ -1,11 +1,5 @@
 import alertpix
 
-pagamento = alertpix.Charge(link="apenasumnerdd", amount=1000, comment="Pagando aquele cafézinho", username="Remetente")
-pagamento.create()
+acc = alertpix.Account("Bearer 0deae4cb254bed51fef30a11a5c63b52")
 
-print("BrCode para o pagamento: ", pagamento.brcode.code)
-print("Aguardando pagamento...")
-while True:
-    if pagamento.check() == True:
-        print("Pagamento concluído!")
-        break
+print(acc.wallet)

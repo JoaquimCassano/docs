@@ -7,9 +7,9 @@
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#7119e7",
+    "light": "#7119e7",
+    "dark": "#7119e7",
     "anchors": {
       "from": "#0D9373",
       "to": "#07C983"
@@ -42,35 +42,25 @@
       "icon": "discord",
       "url": "https://discord.gg/6srFYs8AwB"
     }
-
   ],
   "navigation": [
     {
       "group": "Get Started",
-      "pages": [
-        "introduction",
-        "quickstart",
-        "development"
-      ]
+      "pages": ["introduction", "quickstart"]
     },
     {
       "group": "Exemplos",
-      "pages": [
-          "notificacoes"
-      ]
-    },
-    {
-      "group": "API Documentation",
-      "pages": [
-        "api-reference/introduction"
-      ]
+      "pages": ["saldo"]
     },
     {
       "group": "Endpoint Examples",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "api-reference/endpoint/delete-a-donate",
+        "api-reference/endpoint/list-all-charities",
+        "api-reference/endpoint/list-all-donates",
+        "api-reference/endpoint/list-donates-by-filter",
+        "api-reference/endpoint/run-again-a-donate",
+        "api-reference/endpoint/withdraw-from-wallet"
       ]
     }
   ],
