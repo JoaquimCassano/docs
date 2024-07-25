@@ -1,0 +1,260 @@
+openapi: 3.0.1
+info:
+  title: Alertpix API
+  description: API for Alertpix services.
+  version: 1.0.0
+servers:a
+  - url: https://api.alertpix.live
+
+paths:
+  /wallet/withdraw:
+    post:
+      summary: Withdraw from wallet
+      description: Withdraw a specified amount from the wallet.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  default: "PIX"
+                  required: true
+                  description: Type of withdrawal
+                amount:
+                  type: number
+                  required: true
+                  description: Amount to withdraw
+                  min: 1
+                  example: 100
+                pixKey:
+                  type: string
+                  required: true
+                  example: "123.456.789-00"
+                  description: PIX key for the withdrawal
+                charityId:
+                  type: string
+                  example: "5d8b504291964f1d98f4cc82a96c8176"
+                  description: Charity ID for the withdrawal
+      responses:
+        '200':
+          description: Withdraw successfull
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Wallet'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+
+  /donates:
+    get:
+      summary: List all donates
+      description: Retrieve a list of all donates.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: A list of donates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Donate'
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+
+  /donates/filter:
+    get:
+      summary: List donates by filter
+      description: Retrieve a list of donates based on filter parameters.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: hasAudio
+          in: query
+          required: false
+          schema:
+            type: boolean
+        - name: sender
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: message
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: amount
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: timestamp
+          in: query
+          required: false
+          schema:
+            type: number
+      responses:
+        '200':
+          description: A list of filtered donates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Donate'
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+
+  /donates/run-again:
+    post:
+      summary: Run again a donate
+      description: Run the donate process again for a specified ID.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Donate run again successfully
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Donate not found
+        '500':
+          description: Internal server error
+
+  /donates/delete:
+    post:
+      summary: Delete a donate
+      description: Delete a specified donate by ID.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Donate deleted successfully
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Donate not found
+        '500':
+          description: Internal server error
+
+  /charities:
+    get:
+      summary: List all charities
+      description: Retrieve a list of all charities.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: A list of charities
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Charity'
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Wallet:
+      type: object
+      properties:
+        gross:
+          type: number
+          example: 100
+        net:
+          type: number
+          example: 98
+        unreleased:
+          type: number
+          example: 100
+
+    Donate:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: "5d8b504291964f1d98f4cc82a96c6781"
+        sender:
+          type: string
+          example: "bolodissenouraa"
+        message:
+          type: string
+          example: "aeeooooo"
+        amount:
+          type: number
+          example: 100
+        alertAudio:
+          type: string
+          nullable: true
+          example: https://api.alertpix.live/audio/alert.ogg
+        recordedAudio:
+          type: string
+          nullable: true
+          example: https://api.alertpix.live/audio/5d8b504291964f1d98f4cc82a96c9987
+        ttsAudio:
+          type: string
+          nullable: true
+          example: https://api.alertpix.live/audio/5d8b504291964f1d98f4cc82a96c6781
+        timestamp:
+          type: number
+          example: 1719940768280
+
+    Charity:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: "5d8b504291964f1d98f4cc82a96c8176"
+        name:
+          type: string
+          example: "Prefeitura de XYZ"
+        description:
+          type: string
+          example: "A prefeitura de XYZ"
+        link:
+          type: string
+          example: "example.com"
+        pixKey:
+          type: string
+          example: "12.345.678/0001-00"

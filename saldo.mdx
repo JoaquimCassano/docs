@@ -1,0 +1,34 @@
+---
+title: "Saldo"
+description: "Crie um código para visualizar seu saldo"
+---
+
+Nesse projeto, criaremos um código que mostrará o saldo de sua conta na Alertpix
+
+Para iniciar, crie um arquivo python chamado `exemplo-saldo.py` em seu editor de código favorito e siga os passos a seguir:
+
+<Steps>
+  <Step title="Importar a SDK">
+    Para isso, insira a seguinte linha no seu arquivo:
+    ```python
+    import alertpix
+    ```
+    <Warning>
+      Para funcionar, é necessário que a Alertpix.py esteja instalada em seu computador.
+      Não instalou? Siga o tutorial na [introdução](/introduction.mdx)
+    </Warning>
+  </Step>
+  <Step title="Configurar o client">
+      Agora que já importamos a SDK, vamos "arrumar a casa", isto é, criarmos a [classe](https://docs.python.org/3/tutorial/classes.html) do Client
+      ```python
+      token:str = "Bearer <seu token aqui>"
+      client = alertpix.Alertpix(token)
+      ```
+      <Info>
+        Substitua `"Bearer <seu token aqui>"` por sua própria api key. Não tem uma ainda? Consiga em https://TODO_CHANGELATER.com
+      </Info>
+
+  </Step>
+  <Step title="Fazer a requisição e mostrar o resultado">
+  </Step>
+</Steps>
