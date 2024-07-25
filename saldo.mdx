@@ -30,5 +30,25 @@ Para iniciar, crie um arquivo python chamado `exemplo-saldo.py` em seu editor de
 
   </Step>
   <Step title="Fazer a requisição e mostrar o resultado">
+    Agora, vamos colocar a mão na massa.
+    Insira o seguinte código no arquivo:
+    ```python
+      saldo, saldoBruto = client.account.wallet
+      print(f'Saldo: {saldo}')
+      print(f'Saldo bruto: {saldoBruto}')
+    ```
+
   </Step>
 </Steps>
+
+Portanto, o seu código deve estar assim:
+
+```python
+import alertpix
+token:str = "Bearer <seu token aqui>"
+client = alertpix.Alertpix(token)
+
+saldo, saldoBruto = client.account.wallet
+print(f'Saldo: {saldo}')
+print(f'Saldo bruto: {saldoBruto}')
+```
