@@ -21,14 +21,16 @@ Nosso primeiro código criará uma [Charge](TODO) de um valor que o usuário des
 Em seu editor de código preferido, crie um arquivo chamado `exemplo1.py`, e nele, insira o seguinte:
 ```python
 import alertpix
+token = "Bearer <seu token aqui>"
+client = alertpix.Alertpix(token)
 
-pagamento = alertpix.Charge(link="apenasumnerdd", amount=1000, comment="Pagando aquele cafézinho", username="Remetente")
+pagamento = client.Charge(link="apenasumnerdd", amount=1000, comment="Pagando aquele cafézinho", username="Remetente")
 pagamento.create()
 
 print("BrCode para o pagamento: ", pagamento.brcode.code)
 print("Aguardando pagamento...")
 while True:
-    if pagamento.check() == True:
+    if pagamento.paid == True:
         print("Pagamento concluído!")
         break
 ```
@@ -38,11 +40,13 @@ while True:
   ## Vamos por partes.
   ```python
   import alertpix
+  token = "Bearer <seu token aqui>"
+  client = alertpix.Alertpix(token)
   ```
-  Esse trecho importa para dentro de nosso código toda a sdk, assim permitindo que possamos utilizar os recursos da biblioteca.
+  Esse trecho importa para dentro de nosso código toda a sdk e inicia o client, assim permitindo que possamos utilizar os recursos da biblioteca.
 
   ```python
-  pagamento = alertpix.Charge(link="apenasumnerdd", amount=1000, comment="Pagando aquele cafézinho", username="Remetente")
+  pagamento = client.Charge(link="apenasumnerdd", amount=1000, comment="Pagando aquele cafézinho", username="Remetente")
   pagamento.create()
   ```
   Na primeira linha, criamos a classe Charge, e preenchemos com os <Tooltip tip="Sendo `link` o username da twitch do destinatário da doação, `amount` o valor em centavos, comment a mensagem (opcional) e username o nome do remetente (opcional)">dados que desejamos</Tooltip>
@@ -60,12 +64,12 @@ while True:
   Vamos agora para a última parte.
   ```python
   while True:
-    if pagamento.check() == True:
+    if pagamento.paid == True:
         print("Pagamento concluído!")
         break
   ```
   Na primeira linha, criamos um [loop while](https://docs.python.org/3/reference/compound_stmts.html#the-while-statement) que é executado infinitamente, a não ser que uma condição específica o faça parar (A doação ser paga).
-  Na segunda linha, iniciamos a condicional que rodará infinitamente em nosso loop, a função que checa se o pagamento foi concluido. Nela, rodamos a função `.check()` da classe Charge, e checamos se o resultado é `True`, o que nos significaria que foi sim, pago. Nesse caso, avisamos que foi pago e encerramos o código. Caso contrário, o loop segue.
+  Na segunda linha, iniciamos a condicional que rodará infinitamente em nosso loop, a função que checa se o pagamento foi concluido. Nela checamos se a propriedade `paid` da classe Charge é igual a`True`, o que nos significaria que foi sim, pago. Nesse caso, avisamos que foi pago e encerramos o código. Caso contrário, o loop segue.
 </Accordion>
 
 Em seguida, execute o código com o seguinte comando:

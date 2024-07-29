@@ -33,7 +33,7 @@ Para iniciar, crie um arquivo python chamado `exemplo-saldo.py` em seu editor de
     Agora, vamos colocar a mão na massa.
     Insira o seguinte código no arquivo:
     ```python
-      saldo, saldoBruto = client.account.wallet
+      saldo, saldoBruto = client.account.wallet.amount
       print(f'Saldo: {saldo}')
       print(f'Saldo bruto: {saldoBruto}')
     ```
@@ -48,7 +48,7 @@ import alertpix
 token:str = "Bearer <seu token aqui>"
 client = alertpix.Alertpix(token)
 
-saldo, saldoBruto = client.account.wallet
+saldo, saldoBruto = client.account.wallet.amount
 print(f'Saldo: {saldo}')
 print(f'Saldo bruto: {saldoBruto}')
 ```
